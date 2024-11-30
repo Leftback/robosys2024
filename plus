@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # SPDX-FileCopyrightText: 2024 Leftback
 # SPDX-License-Identifier: BSD-3-Clause
-import sys
+import syss
    
 ans = 0
 for line in sys.stdin:
