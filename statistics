@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2024 Leftback
+# SPDX-License-Identifier: BSD-3-Clause
+
+import statistics
+
+def calculate_statistics(numbers):
+    # 平均値
+    mean = statistics.mean(numbers)
+    
+    # 最頻値
+    try:
+        mode = statistics.mode(numbers)
+    except statistics.StatisticsError:
+        mode = "No unique mode"
+    
+    # 中央値
+    median = statistics.median(numbers)
+    
+    # 最大値
+    maximum = max(numbers)
+    
+    # 最小値
+    minimum = min(numbers)
+    
+    # 範囲（最大値と最小値の差）
+    range_value = maximum - minimum
+    
+    # 四分位数 (inclusive method)
+    quantiles = statistics.quantiles(numbers, n=4, method='inclusive')
+    q1 = quantiles[0]
+    q2 = median
+    q3 = quantiles[2]
+    
+    # 四分位偏差
+    quartile_deviation = (q3 - q1) / 2
+    
+    # 分散
+    variance = statistics.variance(numbers)
+    
+    # 標準偏差
+    stdev = statistics.stdev(numbers)
+    
+    return {
+        "平均値": mean,
+        "最頻値": mode,
+        "中央値": median,
+        "最大値": maximum,
+        "最小値": minimum,
+        "範囲": range_value,
+        "第一四分位数": q1,
+        "第二四分位数（中央値）": q2,
+        "第三四分位数": q3,
+        "四分位偏差": quartile_deviation,
+        "分散": variance,
+        "標準偏差": stdev
+    }
+
+# ユーザーに数列を入力してもらう
+numbers_input = input("数列をカンマ区切りで入力してください: ")
+
+try:
+    # 入力データの検証
+    numbers = list(map(int, numbers_input.split(',')))
+    if not numbers:
+        raise ValueError("数列が空です。")
+    
+    # 統計量を計算
+    stats = calculate_statistics(numbers)
+    
+    # 結果を表示
+    for key, value in stats.items():
+        print(f"{key}: {value}")
+
+except ValueError as e:
+    print(f"入力エラー: {e}")
+
+
