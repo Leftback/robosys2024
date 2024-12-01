@@ -1,57 +1,69 @@
-#!/bin/bash -xv
-# SPDX-FileCopyrightText: 2024 Leftback
-# SPDX-License-Identifier: BSD-3-Clause
+#!/usr/bin/env python3
 
-# Function to handle errors
-g () {
-    echo "NG at Line $1"
-    res=1
-}
+import statistics
 
-# Initialize result
-res=0
+def calculate_statistics(numbers):
+    # 平均値
+    mean = statistics.mean(numbers)
+    
+    # 最頻値
+    try:
+        mode = statistics.mode(numbers)
+    except statistics.StatisticsError:
+        mode = "No unique mode"
+    
+    # 中央値
+    median = statistics.median(numbers)
+    
+    # 最大値
+    maximum = max(numbers)
+    
+    # 最小値
+    minimum = min(numbers)
+    
+    # 範囲（最大値と最小値の差）
+    range_value = maximum - minimum
+    
+    # 四分位数
+    q1 = statistics.quantiles(numbers, n=4)[0]
+    q2 = statistics.median(numbers)
+    q3 = statistics.quantiles(numbers, n=4)[2]
+    
+    # 四分位偏差
+    quartile_deviation = (q3 - q1) / 2
+    
+    # 偏差
+    deviations = [x - mean for x in numbers]
+    
+    # 分散
+    variance = statistics.variance(numbers)
+    
+    # 標準偏差
+    stdev = statistics.stdev(numbers)
+    
+    return {
+        "平均値": mean,
+        "最頻値": mode,
+        "中央値": median,
+        "最大値": maximum,
+        "最小値": minimum,
+        "範囲": range_value,
+        "第一四分位数": q1,
+        "第二四分位数（中央値）": q2,
+        "第三四分位数": q3,
+        "四分位偏差": quartile_deviation,
+        "偏差": deviations,
+        "分散": variance,
+        "標準偏差": stdev
+    }
 
-# Test case 1: Normal input
-out=$(echo "1,2,3,4,5" | ./statistics)
-expected_output="平均値: 3.0
-最頻値: No unique mode
-中央値: 3
-最大値: 5
-最小値: 1
-範囲: 4
-第一四分位数: 1.75
-第二四分位数（中央値）: 3
-第三四分位数: 4.25
-四分位偏差: 1.25
-分散: 2.5
-標準偏差: 1.5811388300841898"
-if [ "$out" != "$expected_output" ]; then
-    g $LINENO
-fi
+# ユーザーに数列を入力してもらう
+numbers_input = input("数列をカンマ区切りで入力してください: ")
+numbers = list(map(int, numbers_input.split(',')))
 
-# Test case 2: Invalid input (non-numeric character)
-out=$(echo "あ" | ./statistics 2>&1)
-if [ "$?" != 1 ]; then
-    g $LINENO
-fi
-if [ "$out" != "入力エラー: invalid literal for int() with base 10: 'あ'" ]; then
-    g $LINENO
-fi
+# 統計量を計算
+stats = calculate_statistics(numbers)
 
-# Test case 3: Empty input
-out=$(echo "" | ./statistics 2>&1)
-if [ "$?" != 1 ]; then
-    g $LINENO
-fi
-if [ "$out" != "入力エラー: 数列を入力" ]; then
-    g $LINENO
-fi
-
-# Final result check
-if [ "$res" = 0 ]; then
-    echo "OK"
-else
-    echo "Test failed"
-fi
-exit $res
-
+# 結果を表示
+for key, value in stats.items():
+    print(f"{key}: {value}")
