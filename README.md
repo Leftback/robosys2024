@@ -9,23 +9,23 @@
 ## 使用方法
 ### Githubからのクローンと実行の手順
 
-1,リポジトリのクローン: 以下のコマンドをコピーして、ターミナルまたはコマンドプロンプトで実行します。
-'''
-git clone https://github.com/Leftback/robosys2024/blob/main/statistics
-'''
-'''
-cd statistics
-'''
+* 1,リポジトリのクローン: 以下のコマンドをコピーして、ターミナルまたはコマンドプロンプトで実行します。
+    ```
+    git clone https://github.com/Leftback/robosys2024/blob/main/statistics
+    ```
+    ```
+    cd statistics
+    ```
 
-2,
-3,
-4,
-5,
-6,
-7,
-8,
-9,
-10,
+* 2,
+* 3,
+* 4,
+* 5,
+* 6,
+* 7,
+* 8,
+* 9,
+* 10,
 
 
 ## 必要条件
