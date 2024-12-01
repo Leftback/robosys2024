@@ -1,103 +1,57 @@
-#!/usr/bin/env python5#!/bin/bash -xv
+#!/bin/bash -xv
 # SPDX-FileCopyrightText: 2024 Leftback
 # SPDX-License-Identifier: BSD-3-Clause
 
-ng () {
-    echo NG at Line $1
+# Function to handle errors
+g () {
+    echo "NG at Line $1"
     res=1
 }
 
+# Initialize result
 res=0
 
-### NORMAL INPUT ###
-out=$(seq 5 | ./statistics)
-[ "${out}" = 15 ] || ng $LINENO
+# Test case 1: Normal input
+out=$(echo "1,2,3,4,5" | ./statistics)
+expected_output="平均値: 3.0
+最頻値: No unique mode
+中央値: 3
+最大値: 5
+最小値: 1
+範囲: 4
+第一四分位数: 1.75
+第二四分位数（中央値）: 3
+第三四分位数: 4.25
+四分位偏差: 1.25
+分散: 2.5
+標準偏差: 1.5811388300841898"
+if [ "$out" != "$expected_output" ]; then
+    g $LINENO
+fi
 
-### STRANGE INPUT ###
-out=$(echo あ | ./statistics)
-[ "$?" = 1 ]      || ng $LINENO
-[ "${out}" = "" ] || ng $LINENO
+# Test case 2: Invalid input (non-numeric character)
+out=$(echo "あ" | ./statistics 2>&1)
+if [ "$?" != 1 ]; then
+    g $LINENO
+fi
+if [ "$out" != "入力エラー: invalid literal for int() with base 10: 'あ'" ]; then
+    g $LINENO
+fi
 
-out=$(echo | ./statistics)
-[ "$?" = 1 ]      || ng $LINENO
-[ "${out}" = "" ] || ng $LINENO
+# Test case 3: Empty input
+out=$(echo "" | ./statistics 2>&1)
+if [ "$?" != 1 ]; then
+    g $LINENO
+fi
+if [ "$out" != "入力エラー: 数列を入力" ]; then
+    g $LINENO
+fi
 
-[ "$res" = 0 ] && echo OK
+# Final result check
+if [ "$res" = 0 ]; then
+    echo "OK"
+else
+    echo "Test failed"
+fi
 exit $res
-# SPDX-FileCopyrightText: 2024 Leftback
-# SPDX-License-Identifier: BSD-3-Clause
-
-import statistics
-
-def calculate_statistics(numbers):
-    # 平均値
-    mean = statistics.mean(numbers)
-    
-    # 最頻値
-    try:
-        mode = statistics.mode(numbers)
-    except statistics.StatisticsError:
-        mode = "No unique mode"
-    
-    # 中央値
-    median = statistics.median(numbers)
-    
-    # 最大値
-    maximum = max(numbers)
-    
-    # 最小値
-    minimum = min(numbers)
-    
-    # 範囲
-    range_value = maximum - minimum
-    
-    # 四分位数
-    quantiles = statistics.quantiles(numbers, n=4, method='inclusive')
-    q1 = quantiles[0]
-    q2 = median
-    q3 = quantiles[2]
-    
-    # 四分位偏差
-    quartile_deviation = (q3 - q1) / 2
-    
-    # 分散
-    variance = statistics.variance(numbers)
-    
-    # 標準偏差
-    stdev = statistics.stdev(numbers)
-    
-    return {
-        "平均値": mean,
-        "最頻値": mode,
-        "中央値": median,
-        "最大値": maximum,
-        "最小値": minimum,
-        "範囲": range_value,
-        "第一四分位数": q1,
-        "第二四分位数（中央値）": q2,
-        "第三四分位数": q3,
-        "四分位偏差": quartile_deviation,
-        "分散": variance,
-        "標準偏差": stdev
-    }
-
-# ユーザーに数列を入力してもらう
-numbers_input = input("数列をカンマ区切りで入力: ")
-
-try:
-    # 入力データの検証
-    numbers = list(map(int, numbers_input.split(',')))
-    if not numbers:
-        raise ValueError("数列を入力")
-    
-    # 統計量を計算
-    stats = calculate_statistics(numbers)
-    
-    # 結果を表示
-    for key, value in stats.items():
-        print(f"{key}: {value}")
-
-except ValueError as e:
-    print(f"入力エラー: {e}")
-
 
