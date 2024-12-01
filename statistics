@@ -23,10 +23,10 @@ def calculate_statistics(numbers):
     # 最小値
     minimum = min(numbers)
     
-    # 範囲（最大値と最小値の差）
+    # 範囲
     range_value = maximum - minimum
     
-    # 四分位数 (inclusive method)
+    # 四分位数
     quantiles = statistics.quantiles(numbers, n=4, method='inclusive')
     q1 = quantiles[0]
     q2 = median
@@ -57,13 +57,13 @@ def calculate_statistics(numbers):
     }
 
 # ユーザーに数列を入力してもらう
-numbers_input = input("数列をカンマ区切りで入力してください: ")
+numbers_input = input("数列をカンマ区切りで入力: ")
 
 try:
     # 入力データの検証
     numbers = list(map(int, numbers_input.split(',')))
     if not numbers:
-        raise ValueError("数列が空です。")
+        raise ValueError("数列を入力")
     
     # 統計量を計算
     stats = calculate_statistics(numbers)
