@@ -9,19 +9,20 @@ ng () {
 
 res=0
 
-### NORMAL INPUT ###
-out=$(echo "1,2,3,4,5" | python3 statistics_command.py)
+### 正常な入力 ###
+out=$(echo "1,2,3,4,5" | python3 statistics.py)
 expected="平均値: 3.0
+最頻値: No unique mode
 中央値: 3.0
-最大値: 5
-最小値: 1
+最大値: 5.0
+最小値: 1.0
 範囲: 4.0
-第一四分位数: 1.5
+第一四分位数: 2.0
 第二四分位数（中央値）: 3.0
-第三四分位数: 4.5
-四分位偏差: 1.5
-分散: 2.5
-標準偏差: 1.581"
+第三四分位数: 4.0
+四分位偏差: 2.0
+分散: 2.0
+標準偏差: 1.4142135623730951"
 
 if [ "$out" != "$expected" ]; then
     echo -e "Expected:\n$expected"
@@ -29,23 +30,22 @@ if [ "$out" != "$expected" ]; then
     ng $LINENO
 fi
 
-### STRANGE INPUT ###
-out=$(echo "あ" | python3 statistics_command.py 2>&1)
+### 異常な入力 ###
+out=$(echo "あ" | python3 statistics.py 2>&1)
 if [ "$?" -ne 1 ]; then
     ng $LINENO
 fi
-if [[ "$out" != *"入力エラー: 数列はカンマ区切りの整数で入力してください。"* ]]; then
+if [[ "$out" != *"could not convert string to float"* ]]; then
     ng $LINENO
 fi
 
-out=$(echo "" | python3 statistics_command.py 2>&1)
+out=$(echo "" | python3 statistics.py 2>&1)
 if [ "$?" -ne 1 ]; then
     ng $LINENO
 fi
-if [[ "$out" != *"入力エラー: 数列はカンマ区切りの整数で入力してください。"* ]]; then
+if [[ "$out" != *"could not convert string to float"* ]]; then
     ng $LINENO
 fi
 
 [ "$res" -eq 0 ] && echo "OK"
 exit $res
-
