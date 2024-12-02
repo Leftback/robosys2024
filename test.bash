@@ -11,8 +11,8 @@ res=0
 
 ### NORMAL INPUT ###
 out=$(echo "1,2,3,4,5" | ./statistics)
-[ "${out}" = "平均値: 3.0
-最頻値: 1
+[ "${out}" = "平均値: 3
+最頻値: No unique mode
 中央値: 3
 最大値: 5
 最小値: 1
