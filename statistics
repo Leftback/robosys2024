@@ -27,9 +27,10 @@ def calculate_statistics(numbers):
     range_value = maximum - minimum
 
     # 四分位数
-    q1 = statistics.quantiles(numbers, n=4)[0]
+    quantiles = statistics.quantiles(numbers, n=4)
+    q1 = quantiles[0]
     q2 = statistics.median(numbers)
-    q3 = statistics.quantiles(numbers, n=4)[2]
+    q3 = quantiles[2]
 
     # 四分位偏差
     quartile_deviation = (q3 - q1) / 2
