@@ -11,10 +11,10 @@
 
 * 1,リポジトリのクローン: 以下のコマンドをコピーして、ターミナルまたはコマンドプロンプトで実行します。
     ```
-    git clone https://github.com/Leftback/robosys2024/blob/main/statistics
+    git clone https://github.com/Leftback/robosys2024.git
     ```
     ```
-    cd statistics
+    cd robosys2024/statistics
     ```
 
 * 2,実行権限の付与: スクリプトに実行権限を付与します。

@@ -26,12 +26,12 @@ out=$(echo "1,2,3,4,5" | ./statistics)
 
 ### STRANGE INPUT ###
 out=$(echo あ | ./statistics)
-[ "$?" = 1 ]      || ng $LINENO
-[ "${out}" = "入力エラー: invalid literal for int() with base 10: 'あ'" ] || ng $LINENO
+[ "$?" = 1 ] || ng $LINENO
+[ "${out}" = "入力エラー: 数列はカンマ区切りの整数で入力してください。" ] || ng $LINENO
 
 out=$(echo | ./statistics)
-[ "$?" = 1 ]      || ng $LINENO
-[ "${out}" = "入力エラー: 数列を入力" ] || ng $LINENO
+[ "$?" = 1 ] || ng $LINENO
+[ "${out}" = "入力エラー: 数列はカンマ区切りの整数で入力してください。" ] || ng $LINENO
 
 [ "$res" = 0 ] && echo OK
 exit $res
