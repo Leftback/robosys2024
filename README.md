@@ -1,3 +1,6 @@
+## robosys2024
+ロボットシステム学の練習リポジトリ
+
 # statistics
 
 ![test](https://github.com/Leftback/robosys2024/actions/workflows/test.yml/badge.svg)
