@@ -9,7 +9,7 @@ ng() {
 
 res=0
 
-#正常なインプット
+# 正常なインプット
 out=$(echo 1 | ./PCCS_color)
 [ "${out}" = "1:pR/紫みの赤" ] || ng ${LINENO}
 
@@ -74,17 +74,15 @@ out=$(echo 21 | ./PCCS_color)
 [ "${out}" = "21:bP/青みの紫" ] || ng ${LINENO}
 
 out=$(echo 22 | ./PCCS_color)
-[ "${out}" = "22:P/紫" ] || ng ${LINENO
-}
+[ "${out}" = "22:P/紫" ] || ng ${LINENO}
+
 out=$(echo 23 | ./PCCS_color)
 [ "${out}" = "23:rP/赤みの紫" ] || ng ${LINENO}
 
 out=$(echo 24 | ./PCCS_color)
 [ "${out}" = "24:RP/赤紫" ] || ng ${LINENO}
 
-
 # 異常なインプット
-
 out=$(echo 25 | ./PCCS_color)
 [ "${out}" = "入力が範囲外です。1～24の数値を入力してください。" ] || ng ${LINENO}
 
@@ -107,7 +105,6 @@ out=$(echo " " | ./PCCS_color)
 [ "${out}" = "無効な入力です。数値を入力してください。" ] || ng ${LINENO}
 
 # 全角数字のインプット
-
 out=$(echo １ | ./PCCS_color)
 [ "${out}" = "1:pR/紫みの赤" ] || ng ${LINENO}
 
