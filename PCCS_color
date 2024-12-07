@@ -1,0 +1,45 @@
+#!/usr/bin/python3
+#SPDX-FileCopyrightText: 2024 Leftback 
+#SPDX-Licence-Indentifier: BSD-3-Clause
+
+def main():
+    # 色相環の対応表
+    color_dict = {
+            1: "1:pR/紫みの赤",
+            2: "2:R/赤",
+            3: "3:yR/黄みの赤",
+            4: "4:rO/赤みのだいだい",
+            5: "5:O/だいだい",
+            6: "6:yO/黄みのだいだい",
+            7: "7:rY/赤みの黄",
+            8: "8:Y/黄",
+            9: "9:gY/緑みの黄",
+            10: "10:YG/黄緑",
+            11: "11:yG/黄みの緑",
+            12: "12:G/緑",
+            13: "13:bG/青みの緑",
+            14: "14:BG/青緑",
+            15: "15:BG/青緑",
+            16: "16:gB/緑みの青",
+            17: "17:B/青",
+            18: "18:B/青",
+            19: "19:pB/紫みの青",
+            20: "20:V/青紫",
+            21: "21:bP/青みの紫",
+            22: "22:P/紫",
+            23: "23:rP/赤みの紫",
+            24: "24:RP/赤紫"
+    }
+
+    # ユーザーからの入力を受け取る
+    try:
+        user_input = int(input("1～24の数値を入力してください: "))
+        if 1 <= user_input <= 24:
+            print(f"{color_dict[user_input]}")
+        else:
+            print("入力が範囲外です。1～24の数値を入力してください。")
+    except ValueError:
+        print("無効な入力です。数値を入力してください。")
+
+if __name__ == "__main__":
+    main()
