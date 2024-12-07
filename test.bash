@@ -105,3 +105,17 @@ out=$(echo "" | ./PCCS_color)
 
 out=$(echo " " | ./PCCS_color)
 [ "${out}" = "無効な入力です。数値を入力してください。" ] || ng ${LINENO}
+
+# 全角数字のインプット
+
+out=$(echo １ | ./PCCS_color)
+[ "${out}" = "1:pR/紫みの赤" ] || ng ${LINENO}
+
+out=$(echo ２ | ./PCCS_color)
+[ "${out}" = "2:R/赤" ] || ng ${LINENO}
+
+out=$(echo ２５ | ./PCCS_color)
+[ "${out}" = "入力が範囲外です。1～24の数値を入力してください。" ] || ng ${LINENO}
+
+out=$(echo ０ | ./PCCS_color)
+[ "${out}" = "入力が範囲外です。1～24の数値を入力してください。" ] || ng ${LINENO}
